@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',system-ui,sans-serif;background:#fbfaf6;color:#1b1d2a;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Palatino Linotype','Book Antiqua',Palatino,Georgia,serif}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  a{color:inherit}
+  button{font-family:inherit}
+  ::selection{background:#fd8e30;color:#fff}
+  .hamburger{display:none}
+  .mobile-menu{display:none}
+  @media (max-width:920px){
+    .desktop-nav{display:none !important}
+    .hamburger{display:flex !important}
+    .mobile-menu{display:flex !important}
+    .r-split{grid-template-columns:1fr !important;gap:40px !important}
+    .r-g2{grid-template-columns:1fr !important}
+    .r-g4{grid-template-columns:repeat(2,1fr) !important}
+    .r-g5{grid-template-columns:repeat(3,1fr) !important}
+    .r-footer{grid-template-columns:1fr !important;gap:36px !important}
+    .hero-h1{font-size:46px !important}
+    .sec-h2{font-size:34px !important}
+    .cta-h2{font-size:34px !important}
+    .r-sec{padding-left:24px !important;padding-right:24px !important}
+    .r-bandpad{padding-left:24px !important;padding-right:24px !important}
+  }
+  @media (max-width:560px){
+    .r-g4{grid-template-columns:1fr !important}
+    .r-g5{grid-template-columns:repeat(2,1fr) !important}
+    .hero-h1{font-size:36px !important}
+    .sec-h2{font-size:28px !important}
+    .cta-h2{font-size:26px !important}
+    .page-h1{font-size:38px !important}
+    .hero-img{height:320px !important}
+  }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#fbfaf6">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:sticky;top:0;z-index:50;background:rgba(251,250,246,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #ece9df">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;display:flex;align-items:center">
+        <img src="assets/black-logo.png" alt="Samanwaya Nepal" style="height:38px;width:auto;display:block">
+      </button>
+      <nav class="desktop-nav" style="display:flex;align-items:center;gap:6px">
+        <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navHome }}">Home</button>
+        <button onClick="{{ goAbout }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navAbout }}">About</button>
+        <button onClick="{{ goPrograms }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navPrograms }}">Programs</button>
+        <button onClick="{{ goContact }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navContact }}">Contact</button>
+        <button onClick="{{ goContact }}" style="margin-left:14px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:15px;font-weight:700;padding:11px 22px;border-radius:999px;box-shadow:0 6px 18px rgba(253,142,48,0.35)">Join Us</button>
+      </nav>
+      <button class="hamburger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;flex-direction:column;justify-content:center;gap:5px;width:46px;height:46px;background:#fff;border:1px solid #ece9df;border-radius:12px;cursor:pointer;align-items:center">
+        <span style="width:20px;height:2.5px;background:#1b1d2a;border-radius:2px;transition:transform .25s;transform:{{ barTop }}"></span>
+        <span style="width:20px;height:2.5px;background:#1b1d2a;border-radius:2px;transition:opacity .2s;opacity:{{ barMidOpacity }}"></span>
+        <span style="width:20px;height:2.5px;background:#1b1d2a;border-radius:2px;transition:transform .25s;transform:{{ barBot }}"></span>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div class="mobile-menu" style="display:none;flex-direction:column;padding:8px 24px 20px;border-top:1px solid #ece9df;background:#fbfaf6">
+        <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left;border-bottom:1px solid #ece9df">Home</button>
+        <button onClick="{{ goAbout }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left;border-bottom:1px solid #ece9df">About</button>
+        <button onClick="{{ goPrograms }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left;border-bottom:1px solid #ece9df">Programs</button>
+        <button onClick="{{ goContact }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left">Contact</button>
+        <button onClick="{{ goContact }}" style="margin-top:14px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:16px;font-weight:700;padding:14px;border-radius:999px">Join Us</button>
+      </div>
+    </sc-if>
+  </header>
+
+  <!-- ============ HOME ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Home">
+
+    <!-- HERO -->
+    <section style="position:relative;overflow:hidden">
+      <div style="position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(29,87,218,0.10),transparent 70%)"></div>
+      <div style="position:absolute;bottom:-180px;left:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(88,189,72,0.12),transparent 70%)"></div>
+      <div class="r-split r-sec" style="position:relative;max-width:1200px;margin:0 auto;padding:72px 32px 84px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:center">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid #ece9df;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#5a5d6e;margin-bottom:28px">
+            <span style="width:8px;height:8px;border-radius:50%;background:#58bd48"></span>
+            YOUTH VOICES · DEMOCRATIC VALUES · NATIONAL IMPACT
+          </div>
+          <h1 class="hero-h1" style="font-size:62px;line-height:1.02;font-weight:800;letter-spacing:-0.03em;margin-bottom:24px">
+            Young people,<br>building the<br><span style="color:#1d57da">democracy</span> they'll <span style="color:#fd8e30">inherit.</span>
+          </h1>
+          <p style="font-size:19px;line-height:1.6;color:#4a4d5e;max-width:520px;margin-bottom:36px">
+            Samanwaya Nepal is a youth-centered institution where young citizens — across every geography, ethnicity, gender, and background — converge to lead the civic systems that shape their lives.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px">
+            <button onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:10px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:16px;font-weight:700;padding:16px 30px;border-radius:999px;box-shadow:0 10px 26px rgba(253,142,48,0.35)">Join the movement →</button>
+            <button onClick="{{ goPrograms }}" style="display:inline-flex;align-items:center;gap:10px;background:transparent;color:#1b1d2a;border:2px solid #d9d6cc;cursor:pointer;font-size:16px;font-weight:600;padding:14px 28px;border-radius:999px">Explore our work</button>
+          </div>
+        </div>
+        <div style="position:relative">
+          <div style="position:absolute;inset:-22px -22px auto auto;width:80%;height:88%;border-radius:28px;background:linear-gradient(135deg,#1d57da,#1cb5c4);transform:rotate(-3deg)"></div>
+          <div style="position:absolute;inset:auto auto -24px -24px;width:60%;height:60%;border-radius:28px;background:linear-gradient(135deg,#58bd48,#fd8e30);transform:rotate(4deg)"></div>
+          <img src="assets/photo-1.jpg" alt="Samanwaya Nepal youth advocacy program" class="hero-img" style="position:relative;width:100%;height:480px;object-fit:cover;object-position:center 18%;border-radius:24px;box-shadow:0 30px 70px rgba(27,29,42,0.22)">
+        </div>
+      </div>
+    </section>
+
+    <!-- MEANING BAND -->
+    <section style="background:#1b1d2a;color:#fff;padding:72px 0">
+      <div style="max-width:1080px;margin:0 auto;padding:0 32px;text-align:center">
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.18em;color:#fd8e30;margin-bottom:22px">समन्वय · SAMANWAYA</div>
+        <p class="serif" style="font-size:34px;line-height:1.42;font-weight:400;letter-spacing:-0.01em">
+          “Samanwaya” means <span style="color:#58bd48">coordination</span>, <span style="color:#1cb5c4">systemic harmony</span>, and <span style="color:#fd8e30">cross-sectoral collaboration</span> — the deliberate art of unifying diverse forces toward a shared, constructive purpose.
+        </p>
+      </div>
+    </section>
+
+    <!-- 4-TIER MODEL -->
+    <section style="max-width:1200px;margin:0 auto;padding:96px 32px">
+      <div style="max-width:680px;margin-bottom:54px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#1d57da;margin-bottom:16px">HOW WE WORK</div>
+        <h2 class="sec-h2" style="font-size:42px;font-weight:800;letter-spacing:-0.025em;line-height:1.08;margin-bottom:18px">From the ward level<br>to the global stage.</h2>
+        <p style="font-size:18px;line-height:1.6;color:#4a4d5e">We move away from top-down development. Our four-tier framework carries youth-led ideas from local communities all the way to international policy arenas.</p>
+      </div>
+      <div class="r-g4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+        <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #ece9df;border-radius:20px;padding:30px 26px;border-top:5px solid {{ t.color }}">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
+              <span style="font-size:40px;font-weight:800;color:{{ t.color }};letter-spacing:-0.04em">{{ t.num }}</span>
+              <span style="font-size:12px;font-weight:700;letter-spacing:0.06em;color:#9a9caa;text-transform:uppercase">{{ t.level }}</span>
+            </div>
+            <h3 style="font-size:22px;font-weight:700;margin-bottom:10px">{{ t.name }}</h3>
+            <p style="font-size:15px;line-height:1.55;color:#5a5d6e">{{ t.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- PROGRAMS TEASER -->
+    <section style="background:#f3f1e8;padding:96px 0">
+      <div style="max-width:1200px;margin:0 auto;padding:0 32px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:50px">
+          <div style="max-width:620px">
+            <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#58bd48;margin-bottom:16px">WHAT WE DO</div>
+            <h2 class="sec-h2" style="font-size:42px;font-weight:800;letter-spacing:-0.025em;line-height:1.08">Eight pillars,<br>one civic mission.</h2>
+          </div>
+          <button onClick="{{ goPrograms }}" style="background:transparent;border:2px solid #1b1d2a;color:#1b1d2a;cursor:pointer;font-size:15px;font-weight:600;padding:13px 24px;border-radius:999px;white-space:nowrap">See all programs →</button>
+        </div>
+        <div class="r-g4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+          <sc-for list="{{ programsShort }}" as="p" hint-placeholder-count="8">
+            <div style="background:#fff;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px;min-height:170px">
+              <span style="width:44px;height:44px;border-radius:12px;background:{{ p.tint }};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:{{ p.color }}">{{ p.num }}</span>
+              <h3 style="font-size:16px;font-weight:700;line-height:1.3">{{ p.name }}</h3>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section class="r-split r-sec" style="max-width:1200px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:center">
+      <div style="position:relative">
+        <div style="position:absolute;inset:auto auto -20px -20px;width:70%;height:70%;border-radius:24px;background:linear-gradient(135deg,#fd8e30,#58bd48)"></div>
+        <img src="assets/photo-2.jpg" alt="Jagadish Kumar Ayer" style="position:relative;width:100%;height:460px;object-fit:cover;object-position:center top;border-radius:22px;box-shadow:0 26px 60px rgba(27,29,42,0.2)">
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#fd8e30;margin-bottom:18px">FROM OUR FOUNDER</div>
+        <p class="serif" style="font-size:30px;line-height:1.45;font-weight:400;letter-spacing:-0.01em;margin-bottom:28px">
+          “Nepal's democratic future depends on the active leadership of its young people — not as beneficiaries, but as co-designers of the systems they inherit.”
+        </p>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:26px">
+          <div style="width:3px;height:48px;background:#1d57da;border-radius:2px"></div>
+          <div>
+            <div style="font-size:18px;font-weight:700">Jagadish Kumar Ayer</div>
+            <div style="font-size:15px;color:#5a5d6e">Founder &amp; Executive Director</div>
+          </div>
+        </div>
+        <p style="font-size:16px;line-height:1.65;color:#4a4d5e;margin-bottom:28px;max-width:560px">A youth expert, policy advocate, and drafting member of Nepal's National Youth Policy 2025. He has reached thousands of young people through leadership and civic-participation programs across Nepal and beyond.</p>
+        <button onClick="{{ goAbout }}" style="background:transparent;border:2px solid #1b1d2a;color:#1b1d2a;cursor:pointer;font-size:15px;font-weight:600;padding:13px 24px;border-radius:999px">Read his story →</button>
+      </div>
+    </section>
+
+    <!-- SDG STRIP -->
+    <section style="background:#1b1d2a;color:#fff;padding:80px 0">
+      <div style="max-width:1200px;margin:0 auto;padding:0 32px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:44px">
+          <h2 style="font-size:36px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;max-width:640px">Aligned with the UN 2030 Agenda for Sustainable Development.</h2>
+          <p style="font-size:15px;color:#b6b8c4;max-width:280px">Every program drives measurable progress across five priority Global Goals.</p>
+        </div>
+        <div class="r-g5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
+          <sc-for list="{{ sdgs }}" as="s" hint-placeholder-count="5">
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px 20px">
+              <div style="font-size:32px;font-weight:800;color:{{ s.color }};letter-spacing:-0.03em;margin-bottom:10px">{{ s.num }}</div>
+              <div style="font-size:15px;font-weight:600;line-height:1.35">{{ s.title }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOIN CTA -->
+    <section style="max-width:1200px;margin:0 auto;padding:96px 32px">
+      <div style="position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(120deg,#1d57da,#1cb5c4);padding:80px 56px;text-align:center;color:#fff">
+        <div style="position:absolute;top:-80px;left:-60px;width:300px;height:300px;border-radius:50%;background:rgba(88,189,72,0.35);filter:blur(10px)"></div>
+        <div style="position:absolute;bottom:-100px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(253,142,48,0.4);filter:blur(10px)"></div>
+        <div style="position:relative">
+          <h2 class="cta-h2" style="font-size:46px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:20px;max-width:760px;margin-left:auto;margin-right:auto">Your voice belongs in the room where decisions are made.</h2>
+          <p style="font-size:19px;line-height:1.55;color:rgba(255,255,255,0.92);max-width:560px;margin:0 auto 36px">Join a national network of young leaders learning to advocate, deliberate, and lead — right from your own community.</p>
+          <button onClick="{{ goContact }}" style="background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:17px;font-weight:700;padding:17px 38px;border-radius:999px;box-shadow:0 14px 34px rgba(0,0,0,0.22)">Become a youth participant →</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </sc-if>
+
+  <!-- ============ ABOUT ============ -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="About">
+    <section style="background:#f3f1e8;padding:72px 0">
+      <div style="max-width:1000px;margin:0 auto;padding:0 32px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#1d57da;margin-bottom:18px">ABOUT SAMANWAYA NEPAL</div>
+        <h1 class="page-h1" style="font-size:54px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:26px">Coordinating for a stronger democracy.</h1>
+        <p style="font-size:20px;line-height:1.6;color:#4a4d5e;max-width:780px">A premier, youth-centered, not-for-profit institution headquartered in Kathmandu — founded on the conviction that sustainable social transformation happens when young people are structurally empowered to co-design the civic systems they inherit.</p>
+      </div>
+    </section>
+
+    <section style="max-width:1000px;margin:0 auto;padding:84px 32px">
+      <div class="r-g2" style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+        <div style="background:#fff;border:1px solid #ece9df;border-radius:22px;padding:40px;border-top:5px solid #1d57da">
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:16px;color:#1d57da">Our Vision</h2>
+          <p style="font-size:17px;line-height:1.62;color:#4a4d5e">An inclusive, accountable, and resilient democratic society where all young people — irrespective of gender, ethnicity, geography, or background — have the agency, platform, and equity to shape the decisions that govern their lives.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #ece9df;border-radius:22px;padding:40px;border-top:5px solid #58bd48">
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:16px;color:#3d9c2e">Our Mission</h2>
+          <p style="font-size:17px;line-height:1.62;color:#4a4d5e">To fortify youth participation across democratic governance and safeguard social inclusion — through leadership incubation, civic literacy, grassroots organizing, and evidence-based cross-sectoral collaboration.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SDG detail -->
+    <section style="background:#fbfaf6;padding:0 0 84px">
+      <div style="max-width:1000px;margin:0 auto;padding:0 32px">
+        <h2 style="font-size:34px;font-weight:800;letter-spacing:-0.02em;margin-bottom:12px">Our global alignment</h2>
+        <p style="font-size:17px;color:#5a5d6e;margin-bottom:40px;max-width:680px">We engineer projects to drive measurable progress across five priority Sustainable Development Goals.</p>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ sdgs }}" as="s" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:26px;background:#fff;border:1px solid #ece9df;border-radius:16px;padding:24px 30px">
+              <div style="flex:none;width:64px;font-size:30px;font-weight:800;color:{{ s.color }};letter-spacing:-0.03em">{{ s.num }}</div>
+              <div>
+                <div style="font-size:18px;font-weight:700;margin-bottom:4px">{{ s.title }}</div>
+                <div style="font-size:15px;color:#5a5d6e;line-height:1.5">{{ s.desc }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- Governance -->
+    <section style="background:#1b1d2a;color:#fff;padding:84px 0">
+      <div style="max-width:1000px;margin:0 auto;padding:0 32px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#fd8e30;margin-bottom:16px">GOVERNANCE &amp; COMPLIANCE</div>
+        <h2 style="font-size:34px;font-weight:800;letter-spacing:-0.02em;margin-bottom:40px">Accountable by design.</h2>
+        <div class="r-g2" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.1);border-radius:18px;overflow:hidden">
+          <sc-for list="{{ creds }}" as="c" hint-placeholder-count="6">
+            <div style="background:#1b1d2a;padding:26px 28px">
+              <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;color:#8a8c9a;text-transform:uppercase;margin-bottom:8px">{{ c.label }}</div>
+              <div style="font-size:17px;font-weight:600;line-height:1.4">{{ c.value }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- Board -->
+    <section style="max-width:1000px;margin:0 auto;padding:84px 32px">
+      <h2 style="font-size:34px;font-weight:800;letter-spacing:-0.02em;margin-bottom:12px">Founding Board of Directors</h2>
+      <p style="font-size:17px;color:#5a5d6e;margin-bottom:40px;max-width:680px">Young professionals united by a shared conviction in youth-led civic change.</p>
+      <div class="r-g5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
+        <sc-for list="{{ board }}" as="b" hint-placeholder-count="5">
+          <div style="background:#fff;border:1px solid #ece9df;border-radius:16px;padding:26px 20px;text-align:center">
+            <div style="width:56px;height:56px;border-radius:50%;background:{{ b.tint }};color:{{ b.color }};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 14px">{{ b.initials }}</div>
+            <div style="font-size:15px;font-weight:700;line-height:1.3;margin-bottom:4px">{{ b.name }}</div>
+            <div style="font-size:13px;color:#8a8c9a">{{ b.role }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ============ PROGRAMS ============ -->
+  <sc-if value="{{ isPrograms }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Programs">
+    <section style="background:#f3f1e8;padding:72px 0">
+      <div style="max-width:1100px;margin:0 auto;padding:0 32px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#58bd48;margin-bottom:18px">OUR WORK</div>
+        <h1 class="page-h1" style="font-size:54px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:26px">Eight strategic<br>program areas.</h1>
+        <p style="font-size:20px;line-height:1.6;color:#4a4d5e;max-width:760px">Each pillar is drawn directly from our statutory mandate — together they form a complete framework for youth-led democratic change.</p>
+      </div>
+    </section>
+
+    <section style="max-width:1100px;margin:0 auto;padding:80px 32px">
+      <div class="r-g2" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <sc-for list="{{ programs }}" as="p" hint-placeholder-count="8">
+          <div style="background:#fff;border:1px solid #ece9df;border-radius:22px;padding:36px;border-left:5px solid {{ p.color }}">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+              <span style="width:48px;height:48px;border-radius:13px;background:{{ p.tint }};color:{{ p.color }};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex:none">{{ p.num }}</span>
+              <h3 style="font-size:21px;font-weight:700;line-height:1.2">{{ p.name }}</h3>
+            </div>
+            <p style="font-size:16px;line-height:1.62;color:#4a4d5e">{{ p.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- model on programs page -->
+    <section style="background:#1b1d2a;color:#fff;padding:84px 0">
+      <div style="max-width:1100px;margin:0 auto;padding:0 32px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#fd8e30;margin-bottom:16px">OPERATIONAL MODALITY</div>
+        <h2 style="font-size:36px;font-weight:800;letter-spacing:-0.025em;margin-bottom:44px;max-width:620px">A four-tier framework — from grassroots to global.</h2>
+        <div class="r-g4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+          <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:28px;border-top:5px solid {{ t.color }}">
+              <div style="font-size:34px;font-weight:800;color:{{ t.color }};letter-spacing:-0.04em;margin-bottom:8px">{{ t.num }}</div>
+              <div style="font-size:12px;font-weight:700;letter-spacing:0.06em;color:#8a8c9a;text-transform:uppercase;margin-bottom:12px">{{ t.level }}</div>
+              <h3 style="font-size:20px;font-weight:700;margin-bottom:10px">{{ t.name }}</h3>
+              <p style="font-size:14px;line-height:1.55;color:#b6b8c4">{{ t.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ============ CONTACT ============ -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Contact">
+    <section style="max-width:1100px;margin:0 auto;padding:80px 32px">
+      <div class="r-split r-sec" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;align-items:start">
+        <div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#fd8e30;margin-bottom:18px">GET INVOLVED</div>
+          <h1 class="page-h1" style="font-size:48px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:22px">Step into the work.</h1>
+          <p style="font-size:18px;line-height:1.6;color:#4a4d5e;margin-bottom:40px">Whether you want to join a program, volunteer, or partner with us — tell us where you are and what moves you. We'll connect you with the nearest youth network.</p>
+
+          <div style="display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex;gap:16px;align-items:flex-start">
+              <span style="width:42px;height:42px;border-radius:11px;background:rgba(29,87,218,0.12);color:#1d57da;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none">✉</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:#8a8c9a;text-transform:uppercase;letter-spacing:0.05em">Email</div>
+                <div style="font-size:17px;font-weight:600"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff96919990bf8c9e929e91889e869ed1908d98d1918f">[email&#160;protected]</a></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start">
+              <span style="width:42px;height:42px;border-radius:11px;background:rgba(88,189,72,0.14);color:#3d9c2e;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none">⌖</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:#8a8c9a;text-transform:uppercase;letter-spacing:0.05em">Corporate Office</div>
+                <div style="font-size:17px;font-weight:600;line-height:1.45">Ward No. 10, Buddhanagar<br>Kathmandu Metropolitan City, Nepal</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start">
+              <span style="width:42px;height:42px;border-radius:11px;background:rgba(253,142,48,0.14);color:#fd8e30;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none">◷</span>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:#8a8c9a;text-transform:uppercase;letter-spacing:0.05em">Affiliation</div>
+                <div style="font-size:17px;font-weight:600;line-height:1.45">Social Welfare Council (SWC)<br>Company Act, 2063 · VAT Registered</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #ece9df;border-radius:24px;padding:42px;box-shadow:0 20px 50px rgba(27,29,42,0.06)">
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:48px 12px">
+              <div style="width:72px;height:72px;border-radius:50%;background:rgba(88,189,72,0.15);color:#3d9c2e;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 22px">✓</div>
+              <h3 style="font-size:26px;font-weight:800;margin-bottom:12px">You're on the list!</h3>
+              <p style="font-size:16px;color:#5a5d6e;line-height:1.6">Thank you for stepping up. Our team will reach out to you soon with next steps.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+            <h3 style="font-size:24px;font-weight:800;margin-bottom:6px">Join as a youth participant</h3>
+            <p style="font-size:15px;color:#5a5d6e;margin-bottom:28px">It takes a minute. Everyone is welcome.</p>
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <div>
+                <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">Full name</label>
+                <input value="{{ fName }}" onInput="{{ setName }}" placeholder="Your name" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6">
+              </div>
+              <div>
+                <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">Email</label>
+                <input value="{{ fEmail }}" onInput="{{ setEmail }}" placeholder="you@email.com" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6">
+              </div>
+              <div>
+                <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">District / Municipality</label>
+                <input value="{{ fDistrict }}" onInput="{{ setDistrict }}" placeholder="Where are you based?" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6">
+              </div>
+              <div>
+                <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">What moves you? <span style="color:#9a9caa;font-weight:400">(optional)</span></label>
+                <textarea value="{{ fMsg }}" onInput="{{ setMsg }}" placeholder="The issues you care about…" rows="3" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6;resize:vertical"></textarea>
+              </div>
+              <button onClick="{{ submit }}" style="margin-top:6px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:16px;font-weight:700;padding:15px;border-radius:11px;box-shadow:0 10px 24px rgba(253,142,48,0.32)">Send my application →</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#15161f;color:#fff;padding:72px 0 40px">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px">
+      <div class="r-footer" style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <div>
+          <img src="assets/white-logo.png" alt="Samanwaya Nepal" style="height:40px;width:auto;margin-bottom:22px;display:block">
+          <p style="font-size:15px;line-height:1.65;color:#9a9caa;max-width:340px">A youth-centered institution coordinating across communities, generations, and state institutions for a stronger, more inclusive democracy.</p>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;color:#fd8e30;margin-bottom:18px">EXPLORE</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <button onClick="{{ goHome }}" style="background:none;border:none;color:#cdcfda;cursor:pointer;font-size:15px;text-align:left;padding:0">Home</button>
+            <button onClick="{{ goAbout }}" style="background:none;border:none;color:#cdcfda;cursor:pointer;font-size:15px;text-align:left;padding:0">About</button>
+            <button onClick="{{ goPrograms }}" style="background:none;border:none;color:#cdcfda;cursor:pointer;font-size:15px;text-align:left;padding:0">Programs</button>
+            <button onClick="{{ goContact }}" style="background:none;border:none;color:#cdcfda;cursor:pointer;font-size:15px;text-align:left;padding:0">Get Involved</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;color:#fd8e30;margin-bottom:18px">CONTACT</div>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:15px;color:#cdcfda;line-height:1.5">
+            <span>Ward No. 10, Buddhanagar<br>Kathmandu, Nepal</span>
+            <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d24232b220d3e2c202c233a2c342c63223f2a63233d">[email&#160;protected]</a></span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:28px;font-size:13px;color:#6e7080">
+        <span>© 2026 Samanwaya Nepal. Not-for-profit distributing company, Company Act 2063.</span>
+        <span>Affiliated with the Social Welfare Council · VAT Registered</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { page: 'home', sent: false, menuOpen: false, fName: '', fEmail: '', fDistrict: '', fMsg: '' };
+
+  go(p) {
+    this.setState({ page: p, menuOpen: false });
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  submit() {
+    if (!this.state.fName.trim() || !this.state.fEmail.trim()) return;
+    this.setState({ sent: true });
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  renderVals() {
+    const page = this.state.page;
+    const accent = (p) => (page === p ? '#1d57da' : 'transparent');
+
+    const programs = [
+      { num: '1', name: 'Democratic Governance & Civic Engagement', color: '#1d57da', tint: 'rgba(29,87,218,0.12)', desc: 'Sustainable pathways for youth engagement in public administration — from municipal ward levels to national policy consultations. Civic literacy modules, mock parliaments, and youth-government roundtables.' },
+      { num: '2', name: 'Social Inclusion, Equity & Justice', color: '#fd8e30', tint: 'rgba(253,142,48,0.14)', desc: 'Amplifying the leadership pipelines of Dalit communities, indigenous Janajatis, women, persons with disabilities, and underserved populations by centering their localized priorities.' },
+      { num: '3', name: 'Leadership Incubation & Capacity Building', color: '#3d9c2e', tint: 'rgba(88,189,72,0.16)', desc: 'Specialized tracks in public-policy fluency, project management, and ethical decision-making — combining formal skill-building with experiential community organizing.' },
+      { num: '4', name: 'Human Rights & Rule of Law', color: '#1cb5c4', tint: 'rgba(28,181,196,0.15)', desc: 'Evidence-based accountability tracking across all three tiers of federal government: procurement monitoring, RTI implementation, legal literacy, and community-led documentation.' },
+      { num: '5', name: 'Non-Partisan Deliberation & Collaboration', color: '#1d57da', tint: 'rgba(29,87,218,0.12)', desc: 'Secure, non-partisan arenas that bridge political, ethnic, and regional polarization through multi-stakeholder symposia and habits of systematic listening and consensus-building.' },
+      { num: '6', name: 'Climate Action & Environmental Sustainability', color: '#3d9c2e', tint: 'rgba(88,189,72,0.16)', desc: 'Community-based ecosystem conservation, municipal climate-adaptation frameworks, green-economy advocacy, and youth-led climate-justice campaigns.' },
+      { num: '7', name: 'Digital Literacy & Applied Research', color: '#1cb5c4', tint: 'rgba(28,181,196,0.15)', desc: 'Bridging the digital divide through technology bootcamps and e-governance tracking, alongside rigorous social-science research and policy briefs.' },
+      { num: '8', name: 'Livelihoods, Culture & Community Development', color: '#fd8e30', tint: 'rgba(253,142,48,0.14)', desc: 'Modern agricultural extension, cooperative supply chains, and public health awareness — while documenting indigenous knowledge and multi-ethnic performing arts.' },
+    ];
+
+    const tiers = [
+      { num: '01', level: 'Local', name: 'Incubate', color: '#fd8e30', desc: 'Open-source civic toolkits, digital literacy, and leadership curriculums delivered to municipal youth networks.' },
+      { num: '02', level: 'Sub-National', name: 'Deliberate', color: '#58bd48', desc: 'Secure assembly spaces where citizens, local government, and media collaborate on structural challenges.' },
+      { num: '03', level: 'National', name: 'Advocate', color: '#1d57da', desc: 'Translating grassroots data and research into policy white papers that influence legal and governance reform.' },
+      { num: '04', level: 'International', name: 'Amplify', color: '#1cb5c4', desc: "Connecting Nepal's youth-led innovations to global platforms, coalitions, and cross-border knowledge exchange." },
+    ];
+
+    const sdgs = [
+      { num: '5', title: 'Gender Equality', color: '#fd8e30', desc: 'Dismantling systemic barriers to leadership for women, girls, and gender minorities in public life.' },
+      { num: '10', title: 'Reduced Inequalities', color: '#58bd48', desc: 'Centering the agency of Dalit communities, indigenous Janajatis, and intersectionally marginalized populations.' },
+      { num: '13', title: 'Climate Action', color: '#1cb5c4', desc: 'Equipping local youth networks to design and lead environmental adaptation in vulnerable eco-zones.' },
+      { num: '16', title: 'Peace & Strong Institutions', color: '#1d57da', desc: 'Promoting transparency, rule of law, open-data access, and non-partisan public dialogue.' },
+      { num: '17', title: 'Partnerships for the Goals', color: '#fd8e30', desc: 'Bridging grassroots civil society, the private sector, and international development agencies.' },
+    ];
+
+    const creds = [
+      { label: 'Legal Configuration', value: 'Not-for-Profit Distributing Company' },
+      { label: 'Governing Legislation', value: 'Company Act, 2063 (Government of Nepal)' },
+      { label: 'Registration Authority', value: 'Office of the Company Registrar, Tripureshwor' },
+      { label: 'Headquarters', value: 'Ward No. 10, Budhanagar, Kathmandu' },
+      { label: 'Fiscal Status', value: 'VAT Registered' },
+      { label: 'Regulatory Affiliation', value: 'Social Welfare Council (SWC)' },
+    ];
+
+    const board = [
+      { name: 'Jagadish Kumar Ayer', role: 'Chairperson', initials: 'JA', color: '#1d57da', tint: 'rgba(29,87,218,0.12)' },
+      { name: 'Jagadishwar Pande', role: 'Director', initials: 'JP', color: '#fd8e30', tint: 'rgba(253,142,48,0.14)' },
+      { name: 'Khimananda Devkota', role: 'Director', initials: 'KD', color: '#3d9c2e', tint: 'rgba(88,189,72,0.16)' },
+      { name: 'Priyanka Mahat', role: 'Director', initials: 'PM', color: '#1cb5c4', tint: 'rgba(28,181,196,0.15)' },
+      { name: 'Sabina Basti', role: 'Director', initials: 'SB', color: '#1d57da', tint: 'rgba(29,87,218,0.12)' },
+    ];
+
+    return {
+      goHome: () => this.go('home'),
+      goAbout: () => this.go('about'),
+      goPrograms: () => this.go('programs'),
+      goContact: () => this.go('contact'),
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      menuOpen: this.state.menuOpen,
+      barTop: this.state.menuOpen ? 'translateY(7.5px) rotate(45deg)' : 'none',
+      barBot: this.state.menuOpen ? 'translateY(-7.5px) rotate(-45deg)' : 'none',
+      barMidOpacity: this.state.menuOpen ? 0 : 1,
+      navHome: accent('home'), navAbout: accent('about'), navPrograms: accent('programs'), navContact: accent('contact'),
+      isHome: page === 'home', isAbout: page === 'about', isPrograms: page === 'programs', isContact: page === 'contact',
+      programs,
+      programsShort: programs.map((p) => ({ num: p.num, name: p.name, color: p.color, tint: p.tint })),
+      tiers, sdgs, creds, board,
+      sent: this.state.sent, notSent: !this.state.sent,
+      fName: this.state.fName, fEmail: this.state.fEmail, fDistrict: this.state.fDistrict, fMsg: this.state.fMsg,
+      setName: (e) => this.setState({ fName: e.target.value }),
+      setEmail: (e) => this.setState({ fEmail: e.target.value }),
+      setDistrict: (e) => this.setState({ fDistrict: e.target.value }),
+      setMsg: (e) => this.setState({ fMsg: e.target.value }),
+      submit: () => this.submit(),
+    };
+  }
+}
+</script>
+</body>
+</html>
