@@ -325,6 +325,33 @@
       </div>
     </section>
 
+    <!-- UPCOMING EVENTS (admin-managed) -->
+    <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#fbfaf6;padding:0 0 90px">
+      <div style="max-width:1100px;margin:0 auto;padding:0 32px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#fd8e30;margin-bottom:16px">WHAT'S NEXT</div>
+        <h2 class="sec-h2" style="font-size:38px;font-weight:800;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px">Upcoming events.</h2>
+        <p style="font-size:18px;line-height:1.6;color:#4a4d5e;max-width:680px;margin-bottom:44px">Join us at our next gatherings, trainings, and youth-led convenings.</p>
+        <div class="r-g2" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+          <sc-for list="{{ events }}" as="ev" hint-placeholder-count="2">
+            <div style="background:#fff;border:1px solid #ece9df;border-radius:22px;overflow:hidden;box-shadow:0 14px 40px rgba(27,29,42,0.05)">
+              <sc-if value="{{ ev.image }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ ev.image }}" alt="{{ ev.title }}" style="width:100%;height:220px;object-fit:cover;display:block">
+              </sc-if>
+              <div style="padding:30px">
+                <sc-if value="{{ ev.date }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:inline-block;font-size:13px;font-weight:700;letter-spacing:0.04em;color:#1d57da;background:rgba(29,87,218,0.1);padding:6px 14px;border-radius:999px;margin-bottom:16px">{{ ev.date }}</div>
+                </sc-if>
+                <h3 style="font-size:22px;font-weight:700;line-height:1.25;margin-bottom:12px">{{ ev.title }}</h3>
+                <p style="font-size:16px;line-height:1.62;color:#4a4d5e">{{ ev.desc }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
     <!-- model on programs page -->
     <section style="background:#1b1d2a;color:#fff;padding:84px 0">
       <div style="max-width:1100px;margin:0 auto;padding:0 32px">
@@ -417,6 +444,107 @@
   </main>
   </sc-if>
 
+  <!-- ============ ADMIN ============ -->
+  <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Admin">
+
+    <!-- LOGIN -->
+    <sc-if value="{{ notLoggedIn }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width:470px;margin:0 auto;padding:80px 32px 130px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#1d57da;margin-bottom:16px;text-align:center">ADMIN ACCESS</div>
+      <h1 class="page-h1" style="font-size:42px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:10px;text-align:center">Sign in</h1>
+      <p style="font-size:15px;color:#5a5d6e;text-align:center;margin-bottom:34px">Manage upcoming events and program updates.</p>
+      <div style="background:#fff;border:1px solid #ece9df;border-radius:24px;padding:38px;box-shadow:0 20px 50px rgba(27,29,42,0.06)">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">Username</label>
+            <input value="{{ loginUser }}" onInput="{{ setLoginUser }}" placeholder="Username" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6">
+          </div>
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">Password</label>
+            <input type="password" value="{{ loginPass }}" onInput="{{ setLoginPass }}" placeholder="Password" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6">
+          </div>
+          <sc-if value="{{ hasLoginError }}" hint-placeholder-val="{{ false }}">
+            <div style="background:rgba(176,0,32,0.08);color:#b00020;font-size:14px;font-weight:600;padding:11px 14px;border-radius:10px">{{ loginError }}</div>
+          </sc-if>
+          <button onClick="{{ login }}" style="margin-top:6px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:16px;font-weight:700;padding:15px;border-radius:11px;box-shadow:0 10px 24px rgba(253,142,48,0.32)">Sign in →</button>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- DASHBOARD -->
+    <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#f3f1e8;padding:56px 0">
+      <div class="r-split r-sec" style="max-width:960px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+        <div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#1d57da;margin-bottom:12px">ADMIN DASHBOARD</div>
+          <h1 class="page-h1" style="font-size:40px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:8px">Manage events</h1>
+          <p style="font-size:15px;color:#5a5d6e">Signed in as <strong>{{ adminUser }}</strong></p>
+        </div>
+        <button onClick="{{ logout }}" style="background:transparent;border:2px solid #1b1d2a;color:#1b1d2a;cursor:pointer;font-size:15px;font-weight:600;padding:12px 24px;border-radius:999px;white-space:nowrap">Log out</button>
+      </div>
+    </section>
+
+    <section style="max-width:960px;margin:0 auto;padding:56px 32px">
+      <!-- ADD EVENT -->
+      <div style="background:#fff;border:1px solid #ece9df;border-radius:22px;padding:38px;margin-bottom:52px;box-shadow:0 14px 40px rgba(27,29,42,0.05)">
+        <h2 style="font-size:24px;font-weight:800;margin-bottom:6px">Add a future event</h2>
+        <p style="font-size:15px;color:#5a5d6e;margin-bottom:28px">Add a photo and details — it appears instantly on the Programs page.</p>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">Event title</label>
+            <input value="{{ evTitle }}" onInput="{{ setEvTitle }}" placeholder="e.g. National Youth Leadership Summit" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6">
+          </div>
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">Date <span style="color:#9a9caa;font-weight:400">(free text — e.g. "August 12, 2026")</span></label>
+            <input value="{{ evDate }}" onInput="{{ setEvDate }}" placeholder="When is it?" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6">
+          </div>
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">About the event</label>
+            <textarea value="{{ evDesc }}" onInput="{{ setEvDesc }}" placeholder="What's happening, who it's for, how to take part…" rows="4" style="width:100%;font-family:inherit;font-size:15px;padding:13px 16px;border:1.5px solid #e2dfd4;border-radius:11px;outline:none;background:#fbfaf6;resize:vertical"></textarea>
+          </div>
+          <div>
+            <label style="display:block;font-size:13px;font-weight:600;color:#5a5d6e;margin-bottom:7px">Photo</label>
+            <input type="file" accept="image/*" onChange="{{ onImage }}" style="width:100%;font-family:inherit;font-size:14px;padding:11px 14px;border:1.5px dashed #d9d6cc;border-radius:11px;outline:none;background:#fbfaf6;cursor:pointer">
+            <sc-if value="{{ hasEvImage }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ evImage }}" alt="Event preview" style="margin-top:14px;width:100%;max-height:240px;object-fit:cover;border-radius:12px;display:block">
+            </sc-if>
+          </div>
+          <button onClick="{{ addEvent }}" style="margin-top:6px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:16px;font-weight:700;padding:15px;border-radius:11px;box-shadow:0 10px 24px rgba(253,142,48,0.32)">Publish event →</button>
+        </div>
+      </div>
+
+      <!-- EXISTING EVENTS -->
+      <h2 style="font-size:24px;font-weight:800;margin-bottom:20px">Published events</h2>
+      <sc-if value="{{ noEvents }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border:1px dashed #d9d6cc;border-radius:18px;padding:40px;text-align:center;color:#8a8c9a;font-size:15px">No events published yet. Add your first one above.</div>
+      </sc-if>
+      <sc-if value="{{ hasEvents }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <sc-for list="{{ events }}" as="ev" hint-placeholder-count="2">
+            <div class="r-split" style="background:#fff;border:1px solid #ece9df;border-radius:18px;padding:20px;display:flex;gap:20px;align-items:center">
+              <sc-if value="{{ ev.image }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ ev.image }}" alt="{{ ev.title }}" style="width:110px;height:80px;object-fit:cover;border-radius:12px;flex:none">
+              </sc-if>
+              <div style="flex:1;min-width:0">
+                <sc-if value="{{ ev.date }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;font-weight:700;color:#1d57da;margin-bottom:4px">{{ ev.date }}</div>
+                </sc-if>
+                <div style="font-size:17px;font-weight:700;margin-bottom:4px">{{ ev.title }}</div>
+                <div style="font-size:14px;color:#5a5d6e;line-height:1.5">{{ ev.desc }}</div>
+              </div>
+              <button onClick="{{ ev.remove }}" style="background:rgba(176,0,32,0.08);color:#b00020;border:none;cursor:pointer;font-size:14px;font-weight:600;padding:10px 18px;border-radius:999px;white-space:nowrap;flex:none">Delete</button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+    </sc-if>
+
+  </main>
+  </sc-if>
+
   <!-- ============ FOOTER ============ -->
   <footer style="background:#15161f;color:#fff;padding:72px 0 40px">
     <div style="max-width:1200px;margin:0 auto;padding:0 32px">
@@ -444,7 +572,9 @@
       </div>
       <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:28px;font-size:13px;color:#6e7080">
         <span>© 2026 Samanwaya Nepal. Not-for-profit distributing company, Company Act 2063.</span>
-        <span>Affiliated with the Social Welfare Council · VAT Registered</span>
+        <span style="display:flex;align-items:center;gap:16px">Affiliated with the Social Welfare Council · VAT Registered
+          <button onClick="{{ goAdmin }}" style="background:none;border:none;color:#6e7080;cursor:pointer;font-size:13px;padding:0;text-decoration:underline">Admin</button>
+        </span>
       </div>
     </div>
   </footer>
@@ -453,7 +583,31 @@
 </x-dc>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  state = { page: 'home', sent: false, menuOpen: false, fName: '', fEmail: '', fDistrict: '', fMsg: '' };
+  state = {
+    page: 'home', sent: false, menuOpen: false,
+    fName: '', fEmail: '', fDistrict: '', fMsg: '',
+    // admin + events (persisted client-side in localStorage)
+    adminUser: null, loginUser: '', loginPass: '', loginError: '',
+    events: [], evTitle: '', evDate: '', evDesc: '', evImage: '',
+  };
+
+  // The only two accounts allowed to manage events.
+  ADMINS = { jagdishayer: 'jagdish#97$', superadmin: 'integricate@24' };
+
+  componentDidMount() {
+    // Restore session + stored events once the component mounts in the browser.
+    this.setState({ adminUser: this.readAdmin(), events: this.readEvents() });
+  }
+
+  readAdmin() {
+    try { return localStorage.getItem('sn_admin') || null; } catch (e) { return null; }
+  }
+  readEvents() {
+    try { return JSON.parse(localStorage.getItem('sn_events') || '[]'); } catch (e) { return []; }
+  }
+  saveEvents(events) {
+    try { localStorage.setItem('sn_events', JSON.stringify(events)); } catch (e) {}
+  }
 
   go(p) {
     this.setState({ page: p, menuOpen: false });
@@ -464,6 +618,51 @@ class Component extends DCLogic {
     if (!this.state.fName.trim() || !this.state.fEmail.trim()) return;
     this.setState({ sent: true });
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  login() {
+    const u = this.state.loginUser.trim();
+    const p = this.state.loginPass;
+    if (this.ADMINS[u] && this.ADMINS[u] === p) {
+      try { localStorage.setItem('sn_admin', u); } catch (e) {}
+      this.setState({ adminUser: u, loginPass: '', loginError: '' });
+    } else {
+      this.setState({ loginError: 'Invalid username or password.' });
+    }
+  }
+
+  logout() {
+    try { localStorage.removeItem('sn_admin'); } catch (e) {}
+    this.setState({ adminUser: null, loginUser: '', loginPass: '', loginError: '' });
+  }
+
+  onImage(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => this.setState({ evImage: reader.result });
+    reader.readAsDataURL(file);
+  }
+
+  addEvent() {
+    const title = this.state.evTitle.trim();
+    if (!title) return;
+    const ev = {
+      id: Date.now(),
+      title,
+      date: this.state.evDate.trim(),
+      desc: this.state.evDesc.trim(),
+      image: this.state.evImage,
+    };
+    const events = [ev, ...this.state.events];
+    this.saveEvents(events);
+    this.setState({ events, evTitle: '', evDate: '', evDesc: '', evImage: '' });
+  }
+
+  removeEvent(id) {
+    const events = this.state.events.filter((e) => e.id !== id);
+    this.saveEvents(events);
+    this.setState({ events });
   }
 
   renderVals() {
@@ -513,11 +712,17 @@ class Component extends DCLogic {
       { name: 'Sabina Basti', role: 'Director', initials: 'SB', color: '#1d57da', tint: 'rgba(29,87,218,0.12)' },
     ];
 
+    const events = this.state.events.map((ev) => ({
+      ...ev,
+      remove: () => this.removeEvent(ev.id),
+    }));
+
     return {
       goHome: () => this.go('home'),
       goAbout: () => this.go('about'),
       goPrograms: () => this.go('programs'),
       goContact: () => this.go('contact'),
+      goAdmin: () => this.go('admin'),
       toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
       menuOpen: this.state.menuOpen,
       barTop: this.state.menuOpen ? 'translateY(7.5px) rotate(45deg)' : 'none',
@@ -525,6 +730,7 @@ class Component extends DCLogic {
       barMidOpacity: this.state.menuOpen ? 0 : 1,
       navHome: accent('home'), navAbout: accent('about'), navPrograms: accent('programs'), navContact: accent('contact'),
       isHome: page === 'home', isAbout: page === 'about', isPrograms: page === 'programs', isContact: page === 'contact',
+      isAdmin: page === 'admin',
       programs,
       programsShort: programs.map((p) => ({ num: p.num, name: p.name, color: p.color, tint: p.tint })),
       tiers, sdgs, creds, board,
@@ -535,6 +741,25 @@ class Component extends DCLogic {
       setDistrict: (e) => this.setState({ fDistrict: e.target.value }),
       setMsg: (e) => this.setState({ fMsg: e.target.value }),
       submit: () => this.submit(),
+      // ---- admin + events ----
+      adminUser: this.state.adminUser,
+      loggedIn: !!this.state.adminUser,
+      notLoggedIn: !this.state.adminUser,
+      loginUser: this.state.loginUser, loginPass: this.state.loginPass,
+      loginError: this.state.loginError, hasLoginError: !!this.state.loginError,
+      setLoginUser: (e) => this.setState({ loginUser: e.target.value }),
+      setLoginPass: (e) => this.setState({ loginPass: e.target.value }),
+      login: () => this.login(),
+      logout: () => this.logout(),
+      events,
+      hasEvents: events.length > 0, noEvents: events.length === 0,
+      evTitle: this.state.evTitle, evDate: this.state.evDate, evDesc: this.state.evDesc,
+      evImage: this.state.evImage, hasEvImage: !!this.state.evImage,
+      setEvTitle: (e) => this.setState({ evTitle: e.target.value }),
+      setEvDate: (e) => this.setState({ evDate: e.target.value }),
+      setEvDesc: (e) => this.setState({ evDesc: e.target.value }),
+      onImage: (e) => this.onImage(e),
+      addEvent: () => this.addEvent(),
     };
   }
 }
