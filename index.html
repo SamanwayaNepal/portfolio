@@ -61,6 +61,7 @@
       <nav class="desktop-nav" style="display:flex;align-items:center;gap:6px">
         <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navHome }}">Home</button>
         <button onClick="{{ goAbout }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navAbout }}">About</button>
+        <button onClick="{{ goFounder }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navFounder }}">Founder's Note</button>
         <button onClick="{{ goPrograms }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navPrograms }}">Programs</button>
         <button onClick="{{ goContact }}" style="background:none;border:none;cursor:pointer;font-size:15px;font-weight:600;color:#1b1d2a;padding:8px 14px;border-radius:8px;border-bottom:3px solid {{ navContact }}">Contact</button>
         <button onClick="{{ goContact }}" style="margin-left:14px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:15px;font-weight:700;padding:11px 22px;border-radius:999px;box-shadow:0 6px 18px rgba(253,142,48,0.35)">Join Us</button>
@@ -75,6 +76,7 @@
       <div class="mobile-menu" style="display:none;flex-direction:column;padding:8px 24px 20px;border-top:1px solid #ece9df;background:#fbfaf6">
         <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left;border-bottom:1px solid #ece9df">Home</button>
         <button onClick="{{ goAbout }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left;border-bottom:1px solid #ece9df">About</button>
+        <button onClick="{{ goFounder }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left;border-bottom:1px solid #ece9df">Founder's Note</button>
         <button onClick="{{ goPrograms }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left;border-bottom:1px solid #ece9df">Programs</button>
         <button onClick="{{ goContact }}" style="background:none;border:none;cursor:pointer;font-size:17px;font-weight:600;color:#1b1d2a;padding:15px 4px;text-align:left">Contact</button>
         <button onClick="{{ goContact }}" style="margin-top:14px;background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:16px;font-weight:700;padding:14px;border-radius:999px">Join Us</button>
@@ -186,7 +188,7 @@
           </div>
         </div>
         <p style="font-size:16px;line-height:1.65;color:#4a4d5e;margin-bottom:28px;max-width:560px">A youth expert, policy advocate, and drafting member of Nepal's National Youth Policy 2025. He has reached thousands of young people through leadership and civic-participation programs across Nepal and beyond.</p>
-        <button onClick="{{ goAbout }}" style="background:transparent;border:2px solid #1b1d2a;color:#1b1d2a;cursor:pointer;font-size:15px;font-weight:600;padding:13px 24px;border-radius:999px">Read his story →</button>
+        <button onClick="{{ goFounder }}" style="background:transparent;border:2px solid #1b1d2a;color:#1b1d2a;cursor:pointer;font-size:15px;font-weight:600;padding:13px 24px;border-radius:999px">Read his story →</button>
       </div>
     </section>
 
@@ -297,6 +299,90 @@
         </sc-for>
       </div>
     </section>
+
+    <!-- Founder's Note callout -->
+    <section style="background:#f3f1e8;padding:0 0 84px">
+      <div style="max-width:1000px;margin:0 auto;padding:0 32px">
+        <div style="background:#fff;border:1px solid #ece9df;border-radius:22px;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap">
+          <div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#fd8e30;margin-bottom:10px">FROM OUR FOUNDER</div>
+            <h2 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;margin-bottom:6px">A note from Jagdish Kumar Ayer</h2>
+            <p style="font-size:16px;color:#5a5d6e;max-width:520px">Read the story and vision behind Samanwaya Nepal, in the founder's own words.</p>
+          </div>
+          <button onClick="{{ goFounder }}" style="flex:none;background:#1b1d2a;color:#fff;border:none;cursor:pointer;font-size:15px;font-weight:700;padding:15px 28px;border-radius:999px">Read the Founder's Note →</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ============ FOUNDER'S NOTE ============ -->
+  <sc-if value="{{ isFounder }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Founder's Note">
+    <section style="background:#f3f1e8;padding:72px 0">
+      <div style="max-width:1000px;margin:0 auto;padding:0 32px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.14em;color:#fd8e30;margin-bottom:18px">FOUNDER'S NOTE</div>
+        <h1 class="page-h1" style="font-size:54px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:26px">Jagdish Kumar Ayer</h1>
+        <p style="font-size:20px;line-height:1.6;color:#4a4d5e;max-width:780px">Founder &amp; Executive Director, Samanwaya Nepal — youth expert, policy advocate, and civic engagement specialist.</p>
+      </div>
+    </section>
+
+    <section class="r-split r-sec" style="max-width:1100px;margin:0 auto;padding:84px 32px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:start">
+      <div style="position:relative">
+        <div style="position:absolute;inset:auto auto -20px -20px;width:70%;height:70%;border-radius:24px;background:linear-gradient(135deg,#fd8e30,#58bd48)"></div>
+        <img src="assets/photo-2.jpg" alt="Jagdish Kumar Ayer" style="position:relative;width:100%;height:460px;object-fit:cover;object-position:center top;border-radius:22px;box-shadow:0 26px 60px rgba(27,29,42,0.2)">
+        <div style="display:flex;align-items:center;gap:16px;margin-top:34px">
+          <div style="width:3px;height:48px;background:#1d57da;border-radius:2px"></div>
+          <div>
+            <div style="font-size:18px;font-weight:700">Jagdish Kumar Ayer</div>
+            <div style="font-size:15px;color:#5a5d6e">Founder &amp; Executive Director</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="serif" style="font-size:28px;line-height:1.45;font-weight:400;letter-spacing:-0.01em;margin-bottom:32px">
+          “Nepal's democratic future depends on the active leadership of its young people — not as beneficiaries, but as co-designers of the systems they inherit.”
+        </p>
+        <p style="font-size:17px;line-height:1.72;color:#4a4d5e;margin-bottom:22px">Jagdish Kumar Ayer is the Founder and Executive Director of Samanwaya Nepal, a non-profit, youth-centered organization working at the intersection of youth empowerment, democratic governance, civic engagement, human rights, climate action, and sustainable development.</p>
+        <p style="font-size:17px;line-height:1.72;color:#4a4d5e;margin-bottom:22px">A recognized youth expert, policy advocate, and civic engagement specialist, Jagdish brings more than a decade of experience working with youth movements, civil society organizations, government institutions, and international networks. He has played a significant role in advancing youth participation in governance and public policy in Nepal, and was a drafting member of Nepal's National Youth Policy 2025.</p>
+        <p style="font-size:17px;line-height:1.72;color:#4a4d5e;margin-bottom:22px">Throughout his career, he has designed and facilitated numerous training curricula and capacity-building programs on leadership, human rights, democracy, elections, civic participation, climate change, and youth empowerment — reaching thousands of young people across Nepal and internationally. He has also authored dozens of articles in national newspapers and digital platforms on youth leadership, democracy, governance, and development.</p>
+        <p style="font-size:17px;line-height:1.72;color:#4a4d5e;margin-bottom:22px">Jagdish served as an Executive Member of Nepal's National Youth Council (2021–2025), where he contributed to youth policy development, advocacy, and institutional strengthening. He currently serves as Strategic Planning and Policy Advisor to the Association of Youth Organisations Nepal (AYON) and previously served as its President. AYON is Nepal's largest national network of youth-led organizations, representing more than 90 member organizations across the country.</p>
+        <p style="font-size:17px;line-height:1.72;color:#4a4d5e;margin-bottom:22px">He is also the Founder President of the Initiative for Civic Change Nepal (IFCC) and has actively contributed to national policy processes, research, publications, and international dialogues on democracy, youth participation, peacebuilding, and sustainable development. He is a member and youth advisor to several global youth alliances and currently serves as a member of the Youth Democracy Network.</p>
+        <p style="font-size:17px;line-height:1.72;color:#4a4d5e;margin-bottom:22px">In recognition of his contributions to youth leadership and sustainable development, Jagdish was honored with the Youth Sustainability Promotion Award 2025. He has represented Nepal at numerous international conferences, forums, and policy dialogues across Asia-Pacific, Europe, Australia, and North America — promoting youth leadership, democratic values, and inclusive development.</p>
+        <p style="font-size:17px;line-height:1.72;color:#4a4d5e">His work is driven by a commitment to strengthening democratic institutions, fostering inclusive governance, and creating meaningful opportunities for young people to become leaders and agents of social change.</p>
+      </div>
+    </section>
+
+    <!-- Highlights -->
+    <section style="background:#fbfaf6;padding:0 0 84px">
+      <div style="max-width:1100px;margin:0 auto;padding:0 32px">
+        <h2 style="font-size:34px;font-weight:800;letter-spacing:-0.02em;margin-bottom:40px">At a glance</h2>
+        <div class="r-g2" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="display:flex;align-items:flex-start;gap:20px;background:#fff;border:1px solid #ece9df;border-radius:16px;padding:24px 30px;border-left:5px solid #1d57da">
+            <div style="font-size:15px;line-height:1.5;color:#4a4d5e"><strong style="color:#1b1d2a">Drafting member</strong> — Nepal's National Youth Policy 2025.</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;background:#fff;border:1px solid #ece9df;border-radius:16px;padding:24px 30px;border-left:5px solid #fd8e30">
+            <div style="font-size:15px;line-height:1.5;color:#4a4d5e"><strong style="color:#1b1d2a">Executive Member</strong> — National Youth Council, Nepal (2021–2025).</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;background:#fff;border:1px solid #ece9df;border-radius:16px;padding:24px 30px;border-left:5px solid #3d9c2e">
+            <div style="font-size:15px;line-height:1.5;color:#4a4d5e"><strong style="color:#1b1d2a">Advisor &amp; former President</strong> — Association of Youth Organisations Nepal (AYON).</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;background:#fff;border:1px solid #ece9df;border-radius:16px;padding:24px 30px;border-left:5px solid #1cb5c4">
+            <div style="font-size:15px;line-height:1.5;color:#4a4d5e"><strong style="color:#1b1d2a">Youth Sustainability Promotion Award 2025</strong> honoree.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="max-width:1100px;margin:0 auto;padding:0 32px 96px">
+      <div style="position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(120deg,#1d57da,#1cb5c4);padding:72px 56px;text-align:center;color:#fff">
+        <div style="position:relative">
+          <h2 class="cta-h2" style="font-size:40px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:18px;max-width:720px;margin-left:auto;margin-right:auto">Be part of the movement he set out to build.</h2>
+          <button onClick="{{ goContact }}" style="background:#fd8e30;color:#fff;border:none;cursor:pointer;font-size:17px;font-weight:700;padding:17px 38px;border-radius:999px;box-shadow:0 14px 34px rgba(0,0,0,0.22)">Get involved →</button>
+        </div>
+      </div>
+    </section>
   </main>
   </sc-if>
 
@@ -387,7 +473,7 @@
               <span style="width:42px;height:42px;border-radius:11px;background:rgba(29,87,218,0.12);color:#1d57da;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none">✉</span>
               <div>
                 <div style="font-size:13px;font-weight:600;color:#8a8c9a;text-transform:uppercase;letter-spacing:0.05em">Email</div>
-                <div style="font-size:17px;font-weight:600"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff96919990bf8c9e929e91889e869ed1908d98d1918f">[email&#160;protected]</a></div>
+                <div style="font-size:17px;font-weight:600"><a href="mailto:info@samanwaya.org.np" style="color:#1d57da;text-decoration:none">info@samanwaya.org.np</a></div>
               </div>
             </div>
             <div style="display:flex;gap:16px;align-items:flex-start">
@@ -566,7 +652,7 @@
           <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;color:#fd8e30;margin-bottom:18px">CONTACT</div>
           <div style="display:flex;flex-direction:column;gap:12px;font-size:15px;color:#cdcfda;line-height:1.5">
             <span>Ward No. 10, Buddhanagar<br>Kathmandu, Nepal</span>
-            <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d24232b220d3e2c202c233a2c342c63223f2a63233d">[email&#160;protected]</a></span>
+            <span><a href="mailto:info@samanwaya.org.np" style="color:#cdcfda;text-decoration:none">info@samanwaya.org.np</a></span>
           </div>
         </div>
       </div>
@@ -720,6 +806,7 @@ class Component extends DCLogic {
     return {
       goHome: () => this.go('home'),
       goAbout: () => this.go('about'),
+      goFounder: () => this.go('founder'),
       goPrograms: () => this.go('programs'),
       goContact: () => this.go('contact'),
       goAdmin: () => this.go('admin'),
@@ -728,8 +815,8 @@ class Component extends DCLogic {
       barTop: this.state.menuOpen ? 'translateY(7.5px) rotate(45deg)' : 'none',
       barBot: this.state.menuOpen ? 'translateY(-7.5px) rotate(-45deg)' : 'none',
       barMidOpacity: this.state.menuOpen ? 0 : 1,
-      navHome: accent('home'), navAbout: accent('about'), navPrograms: accent('programs'), navContact: accent('contact'),
-      isHome: page === 'home', isAbout: page === 'about', isPrograms: page === 'programs', isContact: page === 'contact',
+      navHome: accent('home'), navAbout: accent('about'), navFounder: accent('founder'), navPrograms: accent('programs'), navContact: accent('contact'),
+      isHome: page === 'home', isAbout: page === 'about', isFounder: page === 'founder', isPrograms: page === 'programs', isContact: page === 'contact',
       isAdmin: page === 'admin',
       programs,
       programsShort: programs.map((p) => ({ num: p.num, name: p.name, color: p.color, tint: p.tint })),
