@@ -45,6 +45,9 @@ button,input,textarea,select{font-family:inherit;font-size:inherit}
 
 /* ---------- Layout helpers ---------- */
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+/* Full-width layout on laptops and larger screens */
+@media (min-width:1100px){.wrap{max-width:100%;padding:0 56px}}
+@media (min-width:1600px){.wrap{padding:0 84px}}
 .section{padding:88px 0}
 .section.tight{padding:64px 0}
 .eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-deep);margin-bottom:14px}
@@ -76,9 +79,12 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
 .site-header .wrap{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .site-header .logo img{height:38px;width:auto}
 .nav{display:flex;align-items:center;gap:4px}
-.nav a{font-size:15px;font-weight:600;padding:9px 14px;border-radius:10px;color:var(--ink);transition:color .2s,background .2s}
-.nav a:hover{color:var(--indigo);background:var(--indigo-soft)}
-.nav a.active{color:var(--indigo);box-shadow:inset 0 -3px 0 var(--orange)}
+.nav a{position:relative;font-size:15px;font-weight:600;padding:9px 14px;color:var(--ink);transition:color .25s}
+.nav a:not(.btn)::after{content:'';position:absolute;left:14px;bottom:3px;width:0;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--orange),var(--indigo));transition:width .35s ease}
+.nav a:hover{color:var(--indigo)}
+.nav a:not(.btn):hover::after{width:calc(100% - 28px)}
+.nav a.active{color:var(--indigo)}
+.nav a.active::after{width:calc(100% - 28px)}
 .nav .btn{margin-left:12px;font-size:15px;padding:11px 22px}
 #nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;background:#fff;border:1px solid var(--line);border-radius:12px;cursor:pointer}
 #nav-toggle span{width:20px;height:2.5px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
@@ -190,6 +196,19 @@ blockquote.pull{font-family:Georgia,serif;font-size:clamp(21px,2.4vw,27px);line-
 .page-hero{background:linear-gradient(135deg,var(--indigo-soft),var(--orange-soft));padding:68px 0}
 .page-hero h1{margin-bottom:18px}
 
+/* ---------- Gallery ---------- */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gallery-grid figure{position:relative;overflow:hidden;border-radius:16px;cursor:zoom-in;box-shadow:var(--shadow)}
+.gallery-grid img{width:100%;height:250px;object-fit:cover;transition:transform .5s ease}
+.gallery-grid figure:hover img{transform:scale(1.06)}
+.gallery-grid figcaption{position:absolute;inset:auto 0 0 0;padding:34px 16px 12px;font-size:13.5px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(8,5,77,.82));opacity:0;transition:opacity .3s}
+.gallery-grid figure:hover figcaption{opacity:1}
+.lightbox{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(8,5,77,.93)}
+.lightbox.open{display:flex}
+.lightbox img{max-width:94vw;max-height:84vh;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lightbox .lb-close{position:absolute;top:16px;right:20px;width:44px;height:44px;border:none;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lightbox .lb-cap{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:#d6d4f2;font-size:14.5px;padding:0 24px}
+
 /* ---------- Admin ---------- */
 .admin-shell{max-width:960px;margin:0 auto;padding:48px 24px 100px}
 .admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
@@ -214,8 +233,9 @@ blockquote.pull{font-family:Georgia,serif;font-size:clamp(21px,2.4vw,27px);line-
 @media (max-width:940px){
   .nav{display:none;position:absolute;top:74px;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 22px 22px;gap:2px}
   .nav.open{display:flex}
-  .nav a{padding:14px 6px;border-bottom:1px solid var(--line);border-radius:0}
-  .nav a.active{box-shadow:none;color:var(--orange-deep)}
+  .nav a{padding:14px 6px;border-bottom:1px solid var(--line)}
+  .nav a:not(.btn)::after{display:none}
+  .nav a.active{color:var(--orange-deep)}
   .nav .btn{margin:14px 0 0;justify-content:center}
   #nav-toggle{display:flex}
   .hero .wrap{grid-template-columns:1fr;gap:44px}

@@ -16,7 +16,7 @@
     missionText: "To fortify youth participation across democratic governance and safeguard social inclusion — through leadership incubation, civic literacy, grassroots organizing, and evidence-based cross-sectoral collaboration.",
     email: "info@samanwaya.org.np",
     phone: "",
-    address: "Ward No. 10, Buddhanagar, Kathmandu Metropolitan City, Nepal",
+    address: "Kathmandu, Nepal",
     stat1n: "8", stat1l: "Program pillars",
     stat2n: "4", stat2l: "Tiers: local to global",
     stat3n: "5", stat3l: "UN SDGs targeted",
