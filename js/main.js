@@ -104,27 +104,44 @@
     }
   }
 
-  /* ----- Contact form (static host: builds a prefilled email) ----- */
-  var form = document.getElementById('join-form');
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = form.querySelector('[name=name]').value.trim();
-      var email = form.querySelector('[name=email]').value.trim();
-      var district = form.querySelector('[name=district]').value.trim();
-      var msg = form.querySelector('[name=message]').value.trim();
-      var out = document.getElementById('form-status');
-      if (!name || !email) {
-        out.className = 'form-msg err';
-        out.textContent = 'Please fill in your name and email.';
-        return;
-      }
-      var body = 'Name: ' + name + '\nEmail: ' + email + '\nDistrict/Municipality: ' + district + '\n\n' + msg;
-      window.location.href = 'mailto:' + C.email +
-        '?subject=' + encodeURIComponent('Youth participation — ' + name) +
-        '&body=' + encodeURIComponent(body);
-      out.className = 'form-msg ok';
-      out.textContent = 'Opening your email app to send the application. You can also write to us directly at ' + C.email + '.';
+  /* ----- Forms (posted to FormSubmit, which emails np.samanwaya@gmail.com).
+     After the redirect back, ?sent=1 shows the thank-you banner. ----- */
+  var status = document.getElementById('form-status');
+  if (status && /[?&]sent=1/.test(window.location.search)) {
+    status.className = 'form-msg ok';
+    status.style.display = '';
+    status.textContent = 'Thank you! Your message has been sent — our team will get back to you soon.';
+    status.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
+  document.querySelectorAll('form[data-submitting-text]').forEach(function (f) {
+    f.addEventListener('submit', function () {
+      var btn = f.querySelector('button[type=submit]');
+      if (btn) { btn.textContent = f.getAttribute('data-submitting-text'); btn.disabled = true; }
+    });
+  });
+
+  /* ----- Gallery lightbox ----- */
+  var gallery = document.getElementById('gallery-grid');
+  if (gallery) {
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = '<button class="lb-close" aria-label="Close">✕</button><img alt=""><div class="lb-cap"></div>';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector('img'), lbCap = lb.querySelector('.lb-cap');
+    gallery.addEventListener('click', function (e) {
+      var fig = e.target.closest('figure');
+      if (!fig) return;
+      var img = fig.querySelector('img');
+      lbImg.src = img.getAttribute('data-full') || img.src;
+      lbImg.alt = img.alt;
+      lbCap.textContent = img.alt;
+      lb.classList.add('open');
+    });
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.classList.contains('lb-close')) lb.classList.remove('open');
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') lb.classList.remove('open');
     });
   }
 })();
