@@ -1,1 +1,1 @@
-Nothing needs to be added to the .gitignore file based on the provided file changes, as they only include HTML files which are source code/config files.
+Nothing needs to be added to .gitignore since the changes only include source/config files (.html) and an image file (.png), which should not be ignored.
