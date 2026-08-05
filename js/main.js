@@ -82,7 +82,8 @@
           '<div class="body">' +
           (ev.date ? '<span class="date">' + esc(ev.date) + (ev.location ? ' · ' + esc(ev.location) : '') + '</span>' : '') +
           '<h3>' + esc(ev.title) + '</h3>' +
-          '<p>' + esc(ev.desc) + '</p>' +
+          '<p>' + esc(ev.description) + '</p>' +
+          (ev.link ? '<a href="' + esc(ev.link) + '" target="_blank" rel="noopener noreferrer" class="btn btn-orange" style="margin-top:12px;display:inline-block">' + esc(ev.linkText || 'Learn More') + '</a>' : '') +
           '</div></article>';
       }).join('');
     }
