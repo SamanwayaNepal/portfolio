@@ -21,7 +21,16 @@
     stat2n: "4", stat2l: "Tiers: local to global",
     stat3n: "5", stat3l: "UN SDGs targeted",
     stat4n: "1000+", stat4l: "Youth reached",
-    events: [],
+    events: [
+      {
+        title: "📢 Call for Volunteers – International Youth Day!",
+        date: "August 10, 2026",
+        image: "assets/callforvolunteers.jpg",
+        description: "Are you passionate about youth leadership, democracy, civic engagement, and creating positive change? Join Samanwaya Nepal's volunteer team for International Youth Day 2026.",
+        link: "https://docs.google.com/forms/d/e/1FAIpQLSfYNGZ_IVt_S4FVE7rq0FnwjjIvPlUlE_5UJwhpS0DjA1m39g/viewform",
+        linkText: "Apply Now"
+      }
+    ],
     notices: []
   };
 

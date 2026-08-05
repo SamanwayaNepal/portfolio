@@ -1,1 +1,1 @@
-Nothing needs to be added to .gitignore since the changes only include HTML files (news.html, programs.html) which are source files and not build artifacts, dependencies, or temporary files.
+(js/main.js)
