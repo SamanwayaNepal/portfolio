@@ -92,8 +92,27 @@ h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
 #nav-toggle.open span:nth-child(2){opacity:0}
 #nav-toggle.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 
+/* ---------- Nav dropdown ---------- */
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.nav-dropdown>.dropbtn{display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:10px 14px;border-radius:10px}
+.nav-dropdown>.dropbtn .arrow{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
+.nav-dropdown:hover>.dropbtn,.nav-dropdown:focus-within>.dropbtn{color:var(--indigo)}
+.nav-dropdown.open>.dropbtn .arrow{transform:rotate(-135deg) translateY(-2px)}
+.dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(8px);min-width:200px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);padding:8px;opacity:0;visibility:hidden;transition:opacity .22s ease,transform .22s ease,visibility .22s;z-index:120}
+.dropdown-menu::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(45deg);width:14px;height:14px;background:#fff;border-left:1px solid var(--line);border-top:1px solid var(--line)}
+.nav-dropdown:hover .dropdown-menu,.nav-dropdown:focus-within .dropdown-menu,.nav-dropdown.open .dropdown-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.dropdown-menu a{display:block;padding:11px 14px;border-radius:10px;font-size:14.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+.dropdown-menu a::after{display:none !important}
+.dropdown-menu a:hover,.dropdown-menu a.active{background:var(--indigo-soft);color:var(--indigo)}
+
 /* ---------- Hero ---------- */
 .hero{position:relative;overflow:hidden}
+/* Responsive home banner image */
+.hero-banner{width:100%;line-height:0}
+.hero-banner img{display:block;width:100%;height:auto;max-width:100%;object-fit:cover}
+@media (min-width:1200px){.hero-banner img{max-height:78vh}}
+@media (max-width:940px){.hero-banner img{max-height:60vh;object-position:center 30%}}
+@media (max-width:600px){.hero-banner img{max-height:46vh;object-position:center 35%}}
 .hero::before,.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none}
 .hero::before{top:-180px;right:-140px;width:520px;height:520px;background:radial-gradient(circle,rgba(255,117,30,.14),transparent 70%)}
 .hero::after{bottom:-200px;left:-160px;width:540px;height:540px;background:radial-gradient(circle,rgba(13,7,124,.10),transparent 70%)}
@@ -238,6 +257,11 @@ blockquote.pull{font-family:Georgia,serif;font-size:clamp(21px,2.4vw,27px);line-
   .nav a.active{color:var(--orange-deep)}
   .nav .btn{margin:14px 0 0;justify-content:center}
   #nav-toggle{display:flex}
+  .nav-dropdown{flex-direction:column;align-items:stretch}
+  .nav-dropdown>.dropbtn{justify-content:space-between;width:100%;padding:14px 6px;border-bottom:1px solid var(--line)}
+  .dropdown-menu{position:static;transform:none;opacity:1;visibility:visible;box-shadow:none;border:0;border-radius:0;padding:0 0 6px 14px;min-width:0;background:transparent;transition:none}
+  .dropdown-menu::before{display:none}
+  .dropdown-menu a{padding:12px 6px;border-bottom:1px solid var(--line);white-space:normal}
   .hero .wrap{grid-template-columns:1fr;gap:44px}
   .split,.split.rev{grid-template-columns:1fr;gap:40px}
   .g3,.g4{grid-template-columns:repeat(2,1fr)}

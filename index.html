@@ -100,7 +100,15 @@
       <a href="index.html" class="active" aria-current="page">Home</a>
       <a href="about.html">About</a>
       <a href="founder.html">Founder's Note</a>
-      <a href="programs.html">Youth Fest</a>
+      <div class="nav-dropdown">
+      <button type="button" class="dropbtn" aria-haspopup="true" aria-expanded="false">Youth Fest <span class="arrow" aria-hidden="true"></span></button>
+      <div class="dropdown-menu">
+      <a href="programs.html">Programs</a>
+      <a href="programs.html#youth-fest">Youth Fest 2026</a>
+      <a href="programs.html#events">Events</a>
+      </div>
+      </div>
+
       <a href="gallery.html">Gallery</a>
       <a href="news.html">News &amp; Blogs</a>
       <a href="contact.html">Contact</a>
@@ -114,7 +122,9 @@
 
   <!-- HERO -->
   <section class="hero">
-    <img src="assets/Home_image.jpeg" alt="Young participants at a Samanwaya Nepal youth advocacy program" width="100%" height="933" fetchpriority="high">
+    <div class="hero-banner">
+      <img src="assets/Home_image.jpeg" alt="Young participants at a Samanwaya Nepal youth advocacy program" fetchpriority="high">
+    </div>
    
   </section>
 
