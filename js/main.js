@@ -23,6 +23,43 @@
     });
   }
 
+  /* ----- Nav dropdown (Programs: Youth Fest / Events) ----- */
+  var dropdowns = document.querySelectorAll('.nav-dropdown');
+  dropdowns.forEach(function (dd) {
+    var btn = dd.querySelector('.dropbtn');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isOpen = dd.classList.contains('open');
+      dropdowns.forEach(function (o) {
+        o.classList.remove('open');
+        var ob = o.querySelector('.dropbtn');
+        if (ob) ob.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  document.addEventListener('click', function () {
+    dropdowns.forEach(function (o) {
+      o.classList.remove('open');
+      var ob = o.querySelector('.dropbtn');
+      if (ob) ob.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      dropdowns.forEach(function (o) {
+        o.classList.remove('open');
+        var ob = o.querySelector('.dropbtn');
+        if (ob) ob.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
   /* ----- Reveal on scroll ----- */
   var revealEls = document.querySelectorAll('.reveal');
   function revealAll() {
