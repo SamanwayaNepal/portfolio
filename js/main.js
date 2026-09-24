@@ -15,52 +15,16 @@
   /* ----- Mobile nav ----- */
   var toggle = document.getElementById('nav-toggle');
   var nav = document.querySelector('.nav');
-  var backdrop = document.getElementById('nav-backdrop');
-
-  function closeNav() {
-    if (!nav) return;
-    nav.classList.remove('open');
-    if (toggle) {
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-    if (backdrop) backdrop.classList.remove('show');
-  }
-
   if (toggle && nav) {
     toggle.addEventListener('click', function () {
       var open = nav.classList.toggle('open');
       toggle.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (backdrop) backdrop.classList.toggle('show', open);
     });
-    // Close the mobile menu when a plain link inside it is followed.
-    nav.addEventListener('click', function (e) {
-      if (e.target.closest('a')) closeNav();
-    });
-  }
-  if (backdrop) backdrop.addEventListener('click', closeNav);
-
-  /* ----- Header shadow on scroll ----- */
-  var header = document.querySelector('.site-header');
-  if (header) {
-    var onScroll = function () {
-      header.classList.toggle('scrolled', window.scrollY > 8);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
   }
 
   /* ----- Nav dropdown (Programs: Youth Fest / Events) ----- */
   var dropdowns = document.querySelectorAll('.nav-dropdown');
-  function closeDropdowns(except) {
-    dropdowns.forEach(function (o) {
-      if (o === except) return;
-      o.classList.remove('open');
-      var ob = o.querySelector('.dropbtn');
-      if (ob) ob.setAttribute('aria-expanded', 'false');
-    });
-  }
   dropdowns.forEach(function (dd) {
     var btn = dd.querySelector('.dropbtn');
     if (!btn) return;
@@ -68,28 +32,32 @@
       e.preventDefault();
       e.stopPropagation();
       var isOpen = dd.classList.contains('open');
-      closeDropdowns(dd);
-      dd.classList.toggle('open', !isOpen);
-      btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
-    });
-    // Keyboard support: Escape closes and returns focus to the button.
-    dd.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && dd.classList.contains('open')) {
-        closeDropdowns();
-        btn.focus();
+      dropdowns.forEach(function (o) {
+        o.classList.remove('open');
+        var ob = o.querySelector('.dropbtn');
+        if (ob) ob.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
       }
     });
   });
-  document.addEventListener('click', function () { closeDropdowns(); });
+  document.addEventListener('click', function () {
+    dropdowns.forEach(function (o) {
+      o.classList.remove('open');
+      var ob = o.querySelector('.dropbtn');
+      if (ob) ob.setAttribute('aria-expanded', 'false');
+    });
+  });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
-      closeDropdowns();
-      closeNav();
+      dropdowns.forEach(function (o) {
+        o.classList.remove('open');
+        var ob = o.querySelector('.dropbtn');
+        if (ob) ob.setAttribute('aria-expanded', 'false');
+      });
     }
-  });
-  // Reset desktop hover-open state when resizing back up from mobile.
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 940) closeNav();
   });
 
   /* ----- Reveal on scroll ----- */
