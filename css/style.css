@@ -276,3 +276,90 @@ blockquote.pull{font-family:Georgia,serif;font-size:clamp(21px,2.4vw,27px);line-
   .cta{padding:56px 26px}
   .admin-stats{grid-template-columns:1fr}
 }
+
+/* ---------- Editorial refresh ---------- */
+:root{
+  --orange:#f26422;
+  --orange-deep:#c9440c;
+  --orange-soft:#fff0e8;
+  --indigo:#22205c;
+  --indigo-deep:#11112f;
+  --indigo-soft:#efeff8;
+  --ink:#161622;
+  --muted:#686875;
+  --bg:#faf9f5;
+  --card:#fff;
+  --line:#e5e3dc;
+  --radius:14px;
+  --shadow:0 16px 40px rgba(22,22,34,.07);
+  --shadow-lg:0 28px 70px rgba(22,22,34,.16);
+}
+body{background:var(--bg)}
+.site-header{background:rgba(250,249,245,.92);border-bottom-color:rgba(22,22,34,.1)}
+.site-header .wrap{height:82px}
+.site-header .logo img{height:40px}
+.nav{gap:2px}
+.nav a{font-size:13px;letter-spacing:.015em}
+.nav .btn{font-size:13px}
+.btn{border-radius:8px;padding:14px 22px;font-size:14px;letter-spacing:.01em}
+.btn-orange{box-shadow:none}
+.btn-orange:hover{background:#d95012}
+.hero{height:min(760px,calc(100vh - 82px));min-height:540px;background:var(--indigo-deep)}
+.hero-banner,.hero-banner img{height:100%}
+.hero-banner img{object-fit:cover;object-position:center 34%;filter:saturate(.85)}
+.hero-banner:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,17,47,.92) 0%,rgba(17,17,47,.64) 42%,rgba(17,17,47,.08) 82%),linear-gradient(0deg,rgba(17,17,47,.55),transparent 45%)}
+.hero-overlay{position:absolute;inset:0;display:flex;align-items:center;color:#fff}
+.hero-overlay .wrap{width:100%;padding-top:30px}
+.hero-kicker{display:flex;align-items:center;gap:10px;margin-bottom:22px;color:#ffb28e;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.hero-kicker span{display:block;width:30px;height:2px;background:var(--orange)}
+.hero-overlay h1{max-width:760px;font-size:clamp(46px,7.5vw,92px);line-height:.98;letter-spacing:-.055em;font-weight:800;margin-bottom:26px}
+.hero-overlay h1 em{color:#ff8958;font-style:normal}
+.hero-overlay p{max-width:480px;color:#e0dfeb;font-size:18px;line-height:1.6;margin-bottom:32px}
+.hero-actions{display:flex;align-items:center;gap:25px;flex-wrap:wrap}
+.hero-actions .btn{padding:15px 23px}
+.hero-link{font-size:14px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,.55);padding-bottom:4px}
+.hero-link:hover{color:#ffb28e;border-color:#ffb28e}
+.signal-bar{overflow:hidden;background:var(--orange);color:#fff;height:54px;display:flex;align-items:center}
+.signal-track{display:flex;align-items:center;gap:28px;min-width:max-content;padding-left:28px;font-size:12px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;animation:signal-scroll 28s linear infinite}
+.signal-track i{font-style:normal;font-size:13px;color:#ffd0bd}
+@keyframes signal-scroll{to{transform:translateX(-50%)}}
+.section{padding:104px 0}
+.section.tight{padding:72px 0}
+.eyebrow{font-size:11px;letter-spacing:.2em}
+.h-lg{font-size:clamp(32px,4.2vw,50px);letter-spacing:-.045em}
+.lead{font-size:17px;line-height:1.7}
+.card{border-radius:14px;box-shadow:0 10px 28px rgba(22,22,34,.045);padding:28px}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);transition:transform .25s ease,box-shadow .25s ease}
+.card h3{letter-spacing:-.025em}
+.dark{background:var(--indigo-deep)}
+.quote-band blockquote{font-size:clamp(25px,3.2vw,40px);letter-spacing:-.025em}
+.stats{gap:12px}
+.stat{border-radius:12px;padding:25px 20px}
+.stat b{font-size:42px}
+.page-hero{padding:100px 0;background:var(--indigo-deep);color:#fff}
+.page-hero .lead{color:#cbc9dd}
+.page-hero .eyebrow{color:#ff8958}
+.page-hero h1{max-width:780px;font-size:clamp(46px,7vw,82px);letter-spacing:-.055em}
+.split{gap:78px}
+.frame:after{border-radius:14px}
+.frame img{border-radius:14px}
+.cta{border-radius:14px;padding:88px 48px;background:var(--indigo-deep)}
+.site-footer{background:#0b0b22;padding-top:78px}
+.site-footer h4{font-size:11px;letter-spacing:.18em}
+
+@media (max-width:940px){
+  .hero{height:650px;min-height:0}
+  .hero-overlay h1{font-size:clamp(48px,10vw,76px)}
+  .site-header .wrap{height:74px}
+}
+@media (max-width:600px){
+  .hero{height:650px}
+  .hero-banner img{object-position:62% center}
+  .hero-banner:after{background:linear-gradient(90deg,rgba(17,17,47,.9),rgba(17,17,47,.3)),linear-gradient(0deg,rgba(17,17,47,.7),transparent 60%)}
+  .hero-overlay h1{font-size:clamp(46px,14vw,68px)}
+  .hero-overlay p{font-size:16px}
+  .section{padding:72px 0}
+  .page-hero{padding:72px 0}
+  .page-hero h1{font-size:clamp(44px,13vw,64px)}
+  .signal-track{gap:20px;font-size:10px}
+}
