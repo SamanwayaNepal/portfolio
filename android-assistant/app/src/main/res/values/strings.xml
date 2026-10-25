@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Screen Question Assistant</string>
+    <string name="start_monitoring">Start monitoring</string>
+    <string name="stop_monitoring">Stop monitoring</string>
+    <string name="telegram_bot_token">Telegram bot token</string>
+    <string name="telegram_chat_id">Telegram chat ID</string>
+    <string name="telegram_help">Create a bot with BotFather, send it /start, then enter its token and your chat ID.</string>
+</resources>
